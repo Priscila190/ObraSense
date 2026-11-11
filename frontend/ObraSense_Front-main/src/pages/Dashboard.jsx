@@ -1,11 +1,41 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; // Importado o Link aqui
+import AgentShortcut from '../components/AgentShortcut';
+import { carregarObrasSalvas } from '../data/obras';
 import './Dashboard.css';
+
+const STATUS_OBRAS = [
+  { nome: 'Em andamento', classe: 'andamento', cor: '#2563eb' },
+  { nome: 'Iniciando', classe: 'iniciando', cor: '#f59e0b' },
+  { nome: 'Atrasada', classe: 'atrasada', cor: '#ef4444' },
+  { nome: 'Concluída', classe: 'concluida', cor: '#10b981' },
+];
 
 export default function Dashboard() {
   const navigate = useNavigate();
   // Estado para controlar se a sidebar está aberta ou recolhida
   const [sidebarAberta, setSidebarAberta] = useState(true);
+  const [obras] = useState(carregarObrasSalvas);
+  const [statusSelecionado, setStatusSelecionado] = useState(null);
+  const totalObras = obras.length;
+  const contagemPorStatus = STATUS_OBRAS.map((status) => ({
+    ...status,
+    quantidade: obras.filter((obra) => obra.status === status.nome).length,
+  }));
+  let percentualAcumulado = 0;
+  const faixasGrafico = contagemPorStatus.map((status) => {
+    const inicio = totalObras ? (percentualAcumulado / totalObras) * 100 : 0;
+    percentualAcumulado += status.quantidade;
+    const fim = totalObras ? (percentualAcumulado / totalObras) * 100 : 0;
+    return `${status.cor} ${inicio}% ${fim}%`;
+  });
+  const obrasFiltradas = statusSelecionado
+    ? obras.filter((obra) => obra.status === statusSelecionado)
+    : obras;
+
+  function selecionarStatus(status) {
+    setStatusSelecionado((atual) => atual === status ? null : status);
+  }
 
   return (
     <div className={`dashboard-container ${sidebarAberta ? '' : 'sidebar-fechada'}`}>
@@ -38,10 +68,6 @@ export default function Dashboard() {
             {sidebarAberta && <span>Cronogramas</span>}
           </Link>
 
-          <Link to="/agente" title="Agente IA">
-            <span className="material-symbols-outlined">smart_toy</span>
-            {sidebarAberta && <span>Agente IA</span>}
-          </Link>
         </nav>
 
         <div className="sidebar-footer">
@@ -84,65 +110,124 @@ export default function Dashboard() {
           </div>
         </header>
 
-        {/* 3. CONTEÚDO E DADOS DORMINTES PARA O BACKEND */}
+        {/* 3. VISÃO GERAL DAS OBRAS */}
         <div className="dashboard-data">
           
           <div className="header-data">
-            <h1>Visão Geral do Estaleiro</h1>
-            <p>Resumo atualizado em tempo real pelo Agente de IA.</p>
+            <h1>Visão Geral das Obras</h1>
+            <p>Resumo atualizado com as obras cadastradas na plataforma.</p>
           </div>
 
-          {/* GRID DE CARTÕES DE MÉTRICAS */}
           <div className="scorecards-grid">
-            
-            {/* CARD 1: OBRAS ATIVAS */}
-            <div className="scorecard">
-              <h3>Obras Ativas</h3>
-              {/* BACKEND: Injetar total de obras ativas (Ex: response.data.obrasAtivas) */}
-              <p className="score-value">12</p>
-              {/* BACKEND: Tendência / Comparativo mensal (Ex: response.data.obrasTrend) */}
-              <span className="score-trend positive">↑ 2 novos projetos</span>
-            </div>
-
-            {/* CARD 2: ORÇAMENTO CONSUMIDO */}
-            <div className="scorecard">
-              <h3>Orçamento Consumido</h3>
-              {/* BACKEND: Porcentagem de orçamento gasto (Ex: response.data.orcamentoConsumido) */}
-              <p className="score-value">45%</p>
-              {/* BACKEND: Status do orçamento (Ex: response.data.orcamentoStatus) */}
-              <span className="score-trend neutral">Dentro do previsto</span>
-            </div>
-
-            {/* CARD 3: ALERTAS DA IA */}
-            <div className="scorecard alert-card">
-              <h3>Alertas da IA</h3>
-              {/* BACKEND: Quantidade de alertas não resolvidos (Ex: response.data.alertasCount) */}
-              <p className="score-value">3</p>
-              {/* BACKEND: Descrição do alerta mais crítico (Ex: response.data.ultimoAlertaMsg) */}
-              <span className="score-trend negative">⚠️ Atraso na fundação</span>
-            </div>
-
-            {/* CARD 4: EQUIPE EM CAMPO */}
-            <div className="scorecard">
-              <h3>Equipe em Campo</h3>
-              {/* BACKEND: Total de operários/engenheiros com check-in hoje (Ex: response.data.equipePresente) */}
-              <p className="score-value">148</p>
-              {/* BACKEND: Status de presença (Ex: response.data.presencaStatus) */}
-              <span className="score-trend positive">Presentes hoje</span>
-            </div>
-
+            <button
+              type="button"
+              className={`scorecard scorecard-total ${statusSelecionado === null ? 'selected' : ''}`}
+              onClick={() => setStatusSelecionado(null)}
+              aria-pressed={statusSelecionado === null}
+            >
+              <span className="scorecard-icon material-symbols-outlined">domain</span>
+              <span className="scorecard-title">Todas as obras</span>
+              <span className="score-value">{totalObras}</span>
+              <span className="score-trend neutral">Cadastradas</span>
+            </button>
+            {contagemPorStatus.map((status) => (
+              <button
+                type="button"
+                key={status.nome}
+                className={`scorecard status-${status.classe} ${statusSelecionado === status.nome ? 'selected' : ''}`}
+                onClick={() => selecionarStatus(status.nome)}
+                aria-pressed={statusSelecionado === status.nome}
+              >
+                <span className="scorecard-icon material-symbols-outlined">
+                  {status.classe === 'andamento'
+                    ? 'engineering'
+                    : status.classe === 'iniciando'
+                      ? 'foundation'
+                      : status.classe === 'concluida'
+                        ? 'task_alt'
+                        : 'warning'}
+                </span>
+                <span className="scorecard-title">{status.nome}</span>
+                <span className="score-value">{status.quantidade}</span>
+                <span className={`score-trend ${status.classe === 'atrasada' ? 'negative' : 'neutral'}`}>
+                  {totalObras ? `${Math.round((status.quantidade / totalObras) * 100)}% das obras` : 'Sem obras cadastradas'}
+                </span>
+              </button>
+            ))}
           </div>
 
-          {/* ÁREA RESERVADA PARA O GRÁFICO (Chart.js) */}
-          <div className="charts-area">
-            <div className="chart-placeholder">
-              {/* BACKEND: Injetar os dados do gráfico (Ex: <Line data={dataFromApi} />) */}
-              <span>📈 Área reservada para o Gráfico de Evolução Financeira (Chart.js)</span>
+          <section className="charts-area" aria-labelledby="status-obras-titulo">
+            <div className="chart-header">
+              <div>
+                <h2 id="status-obras-titulo">Status das obras</h2>
+                <p>Distribuição atual por etapa. Selecione um status para filtrar.</p>
+              </div>
+              <Link to="/obras" className="chart-link">
+                Gerenciar obras
+                <span className="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+              </Link>
             </div>
-          </div>
+
+            <div className="chart-content">
+              <div
+                className={`chart-donut ${totalObras ? '' : 'empty'}`}
+                style={totalObras ? { background: `conic-gradient(${faixasGrafico.join(', ')})` } : undefined}
+                role="img"
+                aria-label={`Distribuição de ${totalObras} obras por status`}
+              >
+                <div className="chart-donut-center">
+                  <strong>{totalObras}</strong>
+                  <span>{totalObras === 1 ? 'obra' : 'obras'}</span>
+                </div>
+              </div>
+
+              <div className="chart-details">
+                <div className="chart-legend">
+                  {contagemPorStatus.map((status) => (
+                    <button
+                      type="button"
+                      key={status.nome}
+                      className={`chart-legend-item ${statusSelecionado === status.nome ? 'selected' : ''}`}
+                      onClick={() => selecionarStatus(status.nome)}
+                      aria-pressed={statusSelecionado === status.nome}
+                    >
+                      <span className={`chart-legend-dot ${status.classe}`} />
+                      <span className="chart-legend-name">{status.nome}</span>
+                      <strong>{status.quantidade}</strong>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="chart-obras">
+                  <div className="chart-obras-header">
+                    <h3>{statusSelecionado || 'Todas as obras'}</h3>
+                    <span>{obrasFiltradas.length} {obrasFiltradas.length === 1 ? 'obra' : 'obras'}</span>
+                  </div>
+                  {obrasFiltradas.length ? (
+                    <ul>
+                      {obrasFiltradas.slice(0, 4).map((obra) => (
+                        <li key={obra.id}>
+                          <span className="chart-obra-nome">{obra.nome}</span>
+                          <span className="chart-obra-progresso">{Number(obra.progresso) || 0}%</span>
+                        </li>
+                      ))}
+                      {obrasFiltradas.length > 4 && (
+                        <li className="chart-mais-obras">+ {obrasFiltradas.length - 4} outras obras</li>
+                      )}
+                    </ul>
+                  ) : (
+                    <p className="chart-empty-message">
+                      {totalObras ? 'Nenhuma obra neste status.' : 'Cadastre sua primeira obra para ver a distribuição.'}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </section>
 
         </div>
       </main>
+      <AgentShortcut />
     </div>
   );
 }

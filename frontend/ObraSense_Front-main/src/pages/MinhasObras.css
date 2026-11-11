@@ -30,7 +30,9 @@
 .nova-obra-modal {
   width: 100%;
   max-width: 480px;
+  max-height: calc(100vh - 40px);
   padding: 28px;
+  overflow-y: auto;
   border-radius: 12px;
   background: var(--branco);
   box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
@@ -190,6 +192,7 @@
 .status-badge.em-andamento { background-color: #DBEAFE; color: #1D4ED8; }
 .status-badge.atrasada { background-color: #FEE2E2; color: #B91C1C; }
 .status-badge.iniciando { background-color: #FEF3C7; color: #B45309; }
+.status-badge.concluída { background-color: #DCFCE7; color: #15803D; }
 
 /* Barra de Progresso */
 .progresso-container {
@@ -223,4 +226,60 @@
 
 .btn-acao:hover {
   color: var(--azul-super-escuro);
+}
+
+.btn-acessar-obra {
+  margin-right: 10px;
+  padding: 8px 13px;
+  border: 0;
+  border-radius: 7px;
+  background: #10B981;
+  color: #FFFFFF;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background-color 160ms ease;
+}
+
+.btn-acessar-obra:hover {
+  background: #059669;
+}
+
+.btn-acessar-obra:focus-visible {
+  outline: 3px solid rgba(16, 185, 129, 0.4);
+  outline-offset: 2px;
+}
+
+.obras-erro {
+  margin: -10px 0 18px;
+  padding: 12px 14px;
+  border: 1px solid #FECACA;
+  border-radius: 8px;
+  background: #FEF2F2;
+  color: #B91C1C;
+  font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  .nova-obra-overlay {
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .nova-obra-modal {
+    max-height: calc(100vh - 24px);
+    padding: 22px;
+  }
+
+  .obras-table th,
+  .obras-table td {
+    padding: 13px 12px;
+    font-size: 13px;
+  }
+
+  .btn-acessar-obra {
+    margin-right: 4px;
+    padding: 7px 9px;
+  }
 }

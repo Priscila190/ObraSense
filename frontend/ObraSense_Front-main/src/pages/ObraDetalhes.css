@@ -1,0 +1,498 @@
+.obra-detalhes-data {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.obra-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 22px;
+  color: #059669;
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.obra-voltar:hover {
+  color: #047857;
+}
+
+.obra-voltar .material-symbols-outlined {
+  font-size: 19px;
+}
+
+.obra-detalhe-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.obra-detalhe-heading h1 {
+  margin: 10px 0 5px;
+  color: var(--azul-super-escuro);
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.obra-detalhe-heading p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.status-badge.concluída {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.obra-concluir-button,
+.obra-salvar-button {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 8px;
+  background: #10b981;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.obra-concluir-button:hover,
+.obra-salvar-button:hover {
+  transform: translateY(-1px);
+  background: #059669;
+}
+
+.obra-erro {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+.obra-resumo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.obra-resumo-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 9px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+}
+
+.obra-resumo-card > span {
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.obra-resumo-card strong {
+  overflow: hidden;
+  color: #0f172a;
+  font-size: 21px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+}
+
+.obra-resumo-card.estourado strong {
+  color: #dc2626;
+}
+
+.obra-painel {
+  margin-bottom: 20px;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+}
+
+.obra-painel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.obra-painel-heading h2 {
+  margin: 0 0 5px;
+  color: #0f172a;
+  font-size: 19px;
+  font-weight: 750;
+}
+
+.obra-painel-heading p {
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.orcamento-situacao {
+  flex-shrink: 0;
+  padding: 7px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.orcamento-situacao.dentro {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.orcamento-situacao.atencao {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.orcamento-situacao.acima {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.obra-meta-form,
+.obra-adicionar-form {
+  display: grid;
+  align-items: end;
+  gap: 14px;
+  text-align: left;
+}
+
+.obra-meta-form {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.obra-adicionar-form {
+  margin-bottom: 18px;
+}
+
+.obra-material-form {
+  grid-template-columns: minmax(150px, 2fr) minmax(100px, 1fr) minmax(135px, 1.2fr) auto;
+}
+
+.obra-foto-form {
+  grid-template-columns: minmax(180px, 2fr) minmax(150px, 1.2fr) auto;
+}
+
+.obra-meta-form label,
+.obra-adicionar-form label {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 7px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.obra-meta-form input,
+.obra-meta-form select,
+.obra-adicionar-form input {
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  padding: 9px 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: #fff;
+  color: #0f172a;
+  font: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.obra-meta-form input:focus,
+.obra-meta-form select:focus,
+.obra-adicionar-form input:focus {
+  outline: 2px solid rgba(16, 185, 129, 0.55);
+  outline-offset: 1px;
+}
+
+.obra-meta-form input:disabled {
+  background: #f1f5f9;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.obra-salvar-button {
+  min-height: 42px;
+  white-space: nowrap;
+}
+
+.obra-datas-salvas {
+  display: flex;
+  min-height: 42px;
+  flex-wrap: wrap;
+  grid-column: 1 / -1;
+  align-items: center;
+  gap: 8px 18px;
+  padding: 0 2px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.obra-orcamento-bar {
+  margin-top: 20px;
+}
+
+.obra-orcamento-bar-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.obra-orcamento-track {
+  height: 9px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #e2e8f0;
+}
+
+.obra-orcamento-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #10b981;
+  transition: width 180ms ease;
+}
+
+.obra-orcamento-track span.acima {
+  background: #ef4444;
+}
+
+.obra-materiais-total {
+  flex-shrink: 0;
+  color: #0f172a;
+  font-size: 17px;
+}
+
+.obra-itens-lista {
+  display: flex;
+  flex-direction: column;
+}
+
+.obra-material-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 13px 0;
+  border-top: 1px solid #e2e8f0;
+}
+
+.obra-material-item > div {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.obra-material-item > div strong,
+.obra-material-item > strong {
+  overflow: hidden;
+  color: #0f172a;
+  font-size: 14px;
+  text-overflow: ellipsis;
+}
+
+.obra-material-item > div span {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.obra-material-item > button,
+.obra-foto-card figcaption button {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.obra-material-item > button:hover,
+.obra-foto-card figcaption button:hover {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.obra-vazio {
+  padding: 14px 0 2px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.obra-fotos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 14px;
+}
+
+.obra-foto-card {
+  min-width: 0;
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+}
+
+.obra-foto-card a {
+  display: block;
+  height: 150px;
+  background: #e2e8f0;
+}
+
+.obra-foto-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.obra-foto-card figcaption {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 8px 5px 12px;
+  color: #475569;
+  font-size: 12px;
+}
+
+.obra-foto-card figcaption span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.obra-nao-encontrada {
+  display: flex;
+  min-height: 320px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 30px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  text-align: center;
+}
+
+.obra-nao-encontrada > .material-symbols-outlined {
+  color: #94a3b8;
+  font-size: 40px;
+}
+
+.obra-nao-encontrada h1 {
+  color: #0f172a;
+  font-size: 23px;
+}
+
+.obra-nao-encontrada p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.obra-primary-link {
+  margin-top: 6px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #10b981;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (max-width: 1050px) {
+  .obra-resumo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .obra-meta-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .obra-material-form,
+  .obra-foto-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .obra-detalhes-data {
+    padding: 20px 16px;
+  }
+
+  .obra-detalhe-heading,
+  .obra-painel-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .obra-detalhe-heading h1 {
+    font-size: 25px;
+  }
+
+  .obra-resumo-grid {
+    gap: 10px;
+  }
+
+  .obra-resumo-card {
+    padding: 14px;
+  }
+
+  .obra-resumo-card strong {
+    font-size: 17px;
+  }
+
+  .obra-painel {
+    padding: 18px;
+  }
+
+  .obra-meta-form,
+  .obra-material-form,
+  .obra-foto-form {
+    grid-template-columns: 1fr;
+  }
+
+  .obra-datas-salvas {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+    padding: 6px 0;
+  }
+}

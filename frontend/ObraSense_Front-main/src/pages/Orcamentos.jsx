@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import AgentShortcut from '../components/AgentShortcut';
 import './Dashboard.css';
 import './Orcamentos.css';
 
@@ -85,10 +86,6 @@ export default function Orcamentos() {
           <Link to="/cronogramas" title="Cronogramas">
             <span className="material-symbols-outlined">calendar_month</span>
             {sidebarAberta && <span>Cronogramas</span>}
-          </Link>
-          <Link to="/agente" title="Agente IA">
-            <span className="material-symbols-outlined">smart_toy</span>
-            {sidebarAberta && <span>Agente IA</span>}
           </Link>
         </nav>
 
@@ -224,6 +221,7 @@ export default function Orcamentos() {
           )}
         </div>
       </main>
+      <AgentShortcut />
     </div>
   );
 }

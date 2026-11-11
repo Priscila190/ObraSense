@@ -43,7 +43,7 @@ export default function Login() {
   return (
     <main className="login-page">
       <div className="login-container">
-
+        <img className="login-logo" src="/logo.png" alt="Logo do ObraSense" />
         <h1>Bem-vindo ao ObraSense</h1>
         <p>Entre na sua conta para continuar</p>
 

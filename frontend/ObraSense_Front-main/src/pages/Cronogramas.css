@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   padding: 32px;
-  border: 1px solid #E2E8F0;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
   background: var(--branco);
   text-align: center;
@@ -24,7 +24,8 @@
 }
 
 .cronogramas-vazio p {
-  color: #64748B;
+  max-width: 500px;
+  color: #64748b;
   font-size: 14px;
 }
 
@@ -35,90 +36,113 @@
   gap: 20px;
 }
 
-.cronograma-adicionar,
-.cronograma-acoes button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 11px 16px;
-  border: 0;
-  border-radius: 8px;
-  background: var(--verde-claro);
-  color: #FFFFFF;
-  font-weight: 600;
-  cursor: pointer;
+.cronograma-seletor {
+  display: flex;
+  min-width: min(300px, 100%);
+  flex-direction: column;
+  gap: 6px;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 700;
 }
 
-.cronograma-adicionar:hover,
-.cronograma-acoes button[type="submit"]:hover {
+.cronograma-seletor select {
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #0f172a;
+  font: inherit;
+  font-size: 14px;
+}
+
+.cronograma-seletor select:focus,
+.cronograma-dia-form input:focus,
+.cronograma-dia-form select:focus {
+  outline: 2px solid rgba(16, 185, 129, 0.55);
+  outline-offset: 1px;
+}
+
+.cronograma-link {
+  margin-top: 12px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  background: var(--verde-claro);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.cronograma-link:hover {
   background: #059669;
 }
 
-.cronograma-adicionar:disabled {
-  cursor: not-allowed;
-  opacity: 0.55;
+.cronograma-erro,
+.cronograma-clima-erro {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 13px;
 }
 
-.cronograma-form {
+.cronograma-resumo {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.cronograma-resumo > div {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: 38px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 11px;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.cronograma-resumo .material-symbols-outlined {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 24px;
-  padding: 24px;
-  border: 1px solid #E2E8F0;
-  border-radius: 12px;
-  background: var(--branco);
+  width: 38px;
+  height: 38px;
+  grid-row: span 2;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #ecfdf5;
+  color: #059669;
 }
 
-.cronograma-form h2 {
-  margin: 0 0 4px;
-  color: var(--azul-super-escuro);
-  font-size: 20px;
+.cronograma-resumo p {
+  overflow: hidden;
+  color: #64748b;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.cronograma-form label {
-  margin-top: 4px;
-  color: #334155;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.cronograma-form input,
-.cronograma-form select {
-  width: 100%;
-  padding: 11px 12px;
-  border: 1px solid #CBD5E1;
-  border-radius: 6px;
-  background: #FFFFFF;
-  color: #0F172A;
-  font: inherit;
-  font-size: 14px;
-  box-sizing: border-box;
-}
-
-.cronograma-aviso {
-  margin: 0;
-  color: #B45309;
-  font-size: 14px;
-}
-
-.cronograma-acoes {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-.cronograma-acoes .cronograma-cancelar {
-  border: 1px solid #CBD5E1;
-  background: #FFFFFF;
-  color: #475569;
+.cronograma-resumo strong {
+  overflow: hidden;
+  margin-top: 3px;
+  color: #0f172a;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .calendario-progresso {
-  padding: 24px;
-  border: 1px solid #E2E8F0;
+  padding: 22px;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
   background: var(--branco);
 }
@@ -128,7 +152,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .calendario-header h2 {
@@ -136,6 +160,12 @@
   color: var(--azul-super-escuro);
   font-size: 21px;
   text-transform: capitalize;
+}
+
+.calendario-header p {
+  margin-top: 4px;
+  color: #64748b;
+  font-size: 13px;
 }
 
 .calendario-navegacao {
@@ -150,9 +180,9 @@
   align-items: center;
   justify-content: center;
   padding: 5px 10px;
-  border: 1px solid #CBD5E1;
+  border: 1px solid #cbd5e1;
   border-radius: 6px;
-  background: #FFFFFF;
+  background: #fff;
   color: #334155;
   cursor: pointer;
 }
@@ -162,18 +192,67 @@
   color: #059669;
 }
 
+.cronograma-legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 14px;
+}
+
+.cronograma-legenda > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 11px;
+}
+
+.cronograma-legenda i {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: #e2e8f0;
+}
+
+.legenda-trabalho { background: #d1fae5 !important; }
+.legenda-trabalhado { background: #10b981 !important; }
+.legenda-pausa { background: #fef3c7 !important; }
+.legenda-intervalo { background: #dbeafe !important; }
+.legenda-nao-trabalhado { background: #fee2e2 !important; }
+.legenda-descanso { background: #e2e8f0 !important; }
+.legenda-clima { background: #bfdbfe !important; }
+
+.cronograma-clima-aviso {
+  margin: 0 0 12px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.cronograma-clima-aviso a,
+.cronograma-fonte-clima a {
+  color: #047857;
+  font-weight: 650;
+}
+
+.cronograma-fonte-clima {
+  margin: 10px 0 0;
+  color: #94a3b8;
+  font-size: 10px;
+  text-align: right;
+}
+
 .calendario-grade {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   overflow: hidden;
-  border-top: 1px solid #E2E8F0;
-  border-left: 1px solid #E2E8F0;
+  border-top: 1px solid #e2e8f0;
+  border-left: 1px solid #e2e8f0;
 }
 
 .calendario-dia-semana {
   padding: 10px 6px;
-  background: #F8FAFC;
-  color: #64748B;
+  background: #f8fafc;
+  color: #64748b;
   font-size: 12px;
   font-weight: 700;
   text-align: center;
@@ -181,32 +260,84 @@
 
 .calendario-dia-semana,
 .calendario-celula {
-  border-right: 1px solid #E2E8F0;
-  border-bottom: 1px solid #E2E8F0;
+  border-right: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .calendario-celula {
+  display: flex;
   min-width: 0;
-  min-height: 110px;
-  padding: 8px;
-  background: #FFFFFF;
+  min-height: 126px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 7px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+button.calendario-celula {
+  cursor: pointer;
+  transition: background-color 140ms ease, box-shadow 140ms ease;
+}
+
+button.calendario-celula:hover:not(:disabled) {
+  box-shadow: inset 0 0 0 2px rgba(16, 185, 129, 0.45);
+}
+
+button.calendario-celula:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 3px solid #059669;
+  outline-offset: -3px;
+}
+
+button.calendario-celula:disabled {
+  cursor: default;
 }
 
 .calendario-vazia {
-  background: #F8FAFC;
+  background: #f8fafc;
 }
 
-.calendario-hoje {
-  background: #F0FDF4;
+.calendario-celula.dia-descanso,
+.calendario-celula.dia-descanso-semanal {
+  background: #f8fafc;
+}
+
+.calendario-celula.dia-trabalhado {
+  background: #ecfdf5;
+}
+
+.calendario-celula.dia-pausa {
+  background: #fffbeb;
+}
+
+.calendario-celula.dia-intervalo {
+  background: #eff6ff;
+}
+
+.calendario-celula.dia-nao-trabalhado {
+  background: #fef2f2;
+}
+
+.calendario-celula.calendario-hoje {
+  box-shadow: inset 0 0 0 2px #10b981;
+}
+
+.calendario-celula.dia-selecionado {
+  box-shadow: inset 0 0 0 3px #0f766e;
 }
 
 .calendario-numero {
   display: inline-flex;
   width: 26px;
   height: 26px;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   border-radius: 50%;
   color: #334155;
   font-size: 13px;
@@ -214,45 +345,184 @@
 
 .calendario-hoje .calendario-numero {
   background: var(--verde-claro);
-  color: #FFFFFF;
+  color: #fff;
   font-weight: 700;
 }
 
-.calendario-marcos {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.calendario-marco {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+.calendario-dia-status {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 3px;
   overflow: hidden;
-  padding: 5px 6px;
-  border-left: 3px solid var(--verde-claro);
-  border-radius: 3px;
-  background: #ECFDF5;
-  color: #065F46;
-  font-size: 11px;
-}
-
-.calendario-marco strong,
-.calendario-marco span {
-  overflow: hidden;
+  color: #475569;
+  font-size: 10px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.marco-progresso {
+.calendario-dia-status .material-symbols-outlined {
+  flex-shrink: 0;
+  color: #059669;
+  font-size: 14px;
+}
+
+.dia-trabalhado .calendario-dia-status .material-symbols-outlined { color: #059669; }
+.dia-pausa .calendario-dia-status .material-symbols-outlined { color: #b45309; }
+.dia-intervalo .calendario-dia-status .material-symbols-outlined { color: #2563eb; }
+.dia-nao-trabalhado .calendario-dia-status .material-symbols-outlined { color: #dc2626; }
+.dia-descanso .calendario-dia-status .material-symbols-outlined,
+.dia-descanso-semanal .calendario-dia-status .material-symbols-outlined { color: #64748b; }
+
+.calendario-nota {
+  display: -webkit-box;
+  max-width: 100%;
+  margin-top: 4px;
+  overflow: hidden;
+  color: #64748b;
+  font-size: 10px;
+  line-height: 1.3;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.calendario-clima {
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 3px;
+  margin-top: auto;
+  padding: 3px 5px;
+  border-radius: 6px;
+  background: #eff6ff;
+  color: #1e40af;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.calendario-clima small {
+  margin-left: 2px;
+  color: #64748b;
+  font-size: 9px;
+}
+
+.cronograma-dia-form {
+  display: grid;
+  grid-template-columns: minmax(145px, 0.8fr) minmax(220px, 1.5fr) auto;
+  align-items: end;
+  gap: 14px;
+  margin-top: 20px;
+  padding: 18px;
+  border: 1px solid #d1fae5;
+  border-radius: 10px;
+  background: #f0fdf4;
+}
+
+.cronograma-dia-form-titulo {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cronograma-dia-form-titulo > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cronograma-dia-form-titulo span {
+  color: #64748b;
+  font-size: 11px;
+}
+
+.cronograma-dia-form-titulo strong {
+  color: #0f172a;
+  font-size: 15px;
+}
+
+.cronograma-dia-form-titulo button {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.cronograma-dia-form-titulo button:hover {
+  background: #dcfce7;
+  color: #0f172a;
+}
+
+.cronograma-dia-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #334155;
+  font-size: 12px;
   font-weight: 700;
 }
 
-.calendario-ajuda {
-  margin: 16px 0 0;
-  color: #64748B;
-  font-size: 14px;
-  text-align: center;
+.cronograma-dia-form input,
+.cronograma-dia-form select {
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: #fff;
+  color: #0f172a;
+  font: inherit;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.cronograma-dia-acoes {
+  display: flex;
+  gap: 8px;
+}
+
+.cronograma-dia-acoes button {
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 7px;
+  background: #10b981;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cronograma-dia-acoes button:hover {
+  background: #059669;
+}
+
+.cronograma-dia-acoes .cronograma-cancelar {
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #475569;
+}
+
+.cronograma-dia-acoes .cronograma-cancelar:hover {
+  background: #f8fafc;
+}
+
+@media (max-width: 1050px) {
+  .cronograma-resumo {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cronograma-dia-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 760px) {
@@ -261,17 +531,56 @@
     flex-direction: column;
   }
 
+  .cronograma-seletor {
+    width: 100%;
+  }
+
   .calendario-progresso {
     overflow-x: auto;
     padding: 16px;
   }
 
   .calendario-grade {
-    min-width: 650px;
+    min-width: 700px;
   }
 
   .calendario-celula {
-    min-height: 90px;
+    min-height: 106px;
     padding: 5px;
+  }
+}
+
+@media (max-width: 520px) {
+  .cronograma-resumo {
+    gap: 9px;
+  }
+
+  .cronograma-resumo > div {
+    grid-template-columns: 30px minmax(0, 1fr);
+    gap: 8px;
+    padding: 11px;
+  }
+
+  .cronograma-resumo .material-symbols-outlined {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+
+  .cronograma-resumo strong {
+    font-size: 11px;
+  }
+
+  .calendario-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .cronograma-dia-form {
+    grid-template-columns: 1fr;
+  }
+
+  .cronograma-dia-acoes {
+    justify-content: flex-end;
   }
 }

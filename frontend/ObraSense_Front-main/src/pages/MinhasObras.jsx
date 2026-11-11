@@ -1,40 +1,50 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import AgentShortcut from '../components/AgentShortcut';
+import { carregarObrasSalvas, salvarObras } from '../data/obras';
 import './Dashboard.css'; // Reutiliza a base do layout
 import './MinhasObras.css'; // Estilos da tabela
 
-const OBRAS_STORAGE_KEY = 'obras';
+function dataHoje() {
+  const hoje = new Date();
+  const ajusteFuso = hoje.getTimezoneOffset() * 60000;
+  return new Date(hoje.getTime() - ajusteFuso).toISOString().slice(0, 10);
+}
 
-const obrasIniciais = [
-  { id: 1, nome: 'Residencial Alpha', responsavel: 'Eng. Carlos', status: 'Em andamento', progresso: 65, alerta: false },
-  { id: 2, nome: 'Edifício Corporate', responsavel: 'Eng. Mariana', status: 'Atrasada', progresso: 32, alerta: true },
-  { id: 3, nome: 'Ponte Sul', responsavel: 'Eng. Roberto', status: 'Iniciando', progresso: 10, alerta: false },
-  { id: 4, nome: 'Hospital Central', responsavel: 'Eng. Mariana', status: 'Em andamento', progresso: 88, alerta: false },
-];
+function novoFormularioObra() {
+  return {
+    nome: '',
+    responsavel: '',
+    cidade: '',
+    status: 'Iniciando',
+    progresso: 0,
+    orcamento: '',
+    dataInicio: dataHoje(),
+    dataPrevista: '',
+  };
+}
 
 export default function MinhasObras() {
   const navigate = useNavigate();
   const [sidebarAberta, setSidebarAberta] = useState(true);
-  const [obras, setObras] = useState(() => {
-    try {
-      const obrasSalvas = localStorage.getItem(OBRAS_STORAGE_KEY);
-      return obrasSalvas ? JSON.parse(obrasSalvas) : obrasIniciais;
-    } catch (erro) {
-      console.error('Não foi possível carregar as obras salvas.', erro);
-      return obrasIniciais;
-    }
-  });
+  const [obras, setObras] = useState(carregarObrasSalvas);
+  const [erroArmazenamento, setErroArmazenamento] = useState('');
   const [modalAberto, setModalAberto] = useState(false);
   const [obraEmEdicao, setObraEmEdicao] = useState(null);
-  const [novaObra, setNovaObra] = useState({ nome: '', responsavel: '', status: 'Iniciando', progresso: 0 });
+  const [novaObra, setNovaObra] = useState(novoFormularioObra);
 
-  useEffect(() => {
+  function persistirObras(obrasAtualizadas) {
     try {
-      localStorage.setItem(OBRAS_STORAGE_KEY, JSON.stringify(obras));
+      salvarObras(obrasAtualizadas);
+      setObras(obrasAtualizadas);
+      setErroArmazenamento('');
+      return true;
     } catch (erro) {
       console.error('Não foi possível salvar as obras no navegador.', erro);
+      setErroArmazenamento('Não foi possível salvar as alterações no navegador. Libere espaço e tente novamente.');
+      return false;
     }
-  }, [obras]);
+  }
 
   function alterarCampo(evento) {
     const { name, value } = evento.target;
@@ -46,8 +56,12 @@ export default function MinhasObras() {
     setNovaObra({
       nome: obra.nome,
       responsavel: obra.responsavel,
+      cidade: obra.cidade || '',
       status: obra.status,
       progresso: obra.progresso,
+      orcamento: obra.orcamento,
+      dataInicio: obra.dataInicio || '',
+      dataPrevista: obra.dataPrevista,
     });
     setModalAberto(true);
   }
@@ -55,31 +69,52 @@ export default function MinhasObras() {
   function fecharModal() {
     setModalAberto(false);
     setObraEmEdicao(null);
-    setNovaObra({ nome: '', responsavel: '', status: 'Iniciando', progresso: 0 });
+    setNovaObra(novoFormularioObra());
   }
 
   function salvarObra(evento) {
     evento.preventDefault();
 
+    const camposObra = {
+      ...novaObra,
+      progresso: Number(novaObra.progresso),
+      orcamento: Number(novaObra.orcamento) || 0,
+    };
+
+    if (novaObra.dataInicio && novaObra.dataPrevista && novaObra.dataPrevista < novaObra.dataInicio) {
+      return;
+    }
+
     if (obraEmEdicao !== null) {
-      setObras((anteriores) => anteriores.map((obra) => (
+      const obrasAtualizadas = obras.map((obra) => (
         obra.id === obraEmEdicao
-          ? { ...obra, ...novaObra, progresso: Number(novaObra.progresso) }
+          ? {
+            ...obra,
+            ...camposObra,
+            progresso: novaObra.status === 'Concluída' ? 100 : camposObra.progresso,
+            dataConclusao: novaObra.status === 'Concluída'
+              ? obra.dataConclusao || dataHoje()
+              : '',
+            alerta: novaObra.status === 'Atrasada',
+          }
           : obra
-      )));
-      fecharModal();
+      ));
+      if (persistirObras(obrasAtualizadas)) fecharModal();
       return;
     }
 
     const obraCriada = {
       ...novaObra,
       id: Date.now(),
-      progresso: Number(novaObra.progresso),
-      alerta: false,
+      progresso: novaObra.status === 'Concluída' ? 100 : Number(novaObra.progresso),
+      orcamento: Number(novaObra.orcamento) || 0,
+      dataConclusao: novaObra.status === 'Concluída' ? dataHoje() : '',
+      materiais: [],
+      fotos: [],
+      alerta: novaObra.status === 'Atrasada',
     };
 
-    setObras((anteriores) => [obraCriada, ...anteriores]);
-    fecharModal();
+    if (persistirObras([obraCriada, ...obras])) fecharModal();
   }
 
   return (
@@ -108,10 +143,6 @@ export default function MinhasObras() {
           <Link to="/cronogramas" title="Cronogramas">
             <span className="material-symbols-outlined">calendar_month</span>
             {sidebarAberta && <span>Cronogramas</span>}
-          </Link>
-          <Link to="/agente" title="Agente IA">
-            <span className="material-symbols-outlined">smart_toy</span>
-            {sidebarAberta && <span>Agente IA</span>}
           </Link>
         </nav>
 
@@ -157,6 +188,8 @@ export default function MinhasObras() {
             </button>
           </div>
 
+          {erroArmazenamento && <p className="obras-erro" role="alert">{erroArmazenamento}</p>}
+
           {/* TABELA DE DADOS */}
           <div className="table-container">
             <table className="obras-table">
@@ -189,6 +222,13 @@ export default function MinhasObras() {
                       </div>
                     </td>
                     <td>
+                      <button
+                        className="btn-acessar-obra"
+                        type="button"
+                        onClick={() => navigate(`/obras/${obra.id}`)}
+                      >
+                        Acessar
+                      </button>
                       <button className="btn-acao" type="button" title={`Editar ${obra.nome}`} onClick={() => abrirEdicao(obra)}>
                         <span className="material-symbols-outlined">edit</span>
                       </button>
@@ -201,7 +241,7 @@ export default function MinhasObras() {
 
         </div>
       </main>
-
+      <AgentShortcut />
       {modalAberto && (
         <div className="nova-obra-overlay">
           <section className="nova-obra-modal" role="dialog" aria-modal="true" aria-labelledby="nova-obra-titulo">
@@ -240,12 +280,57 @@ export default function MinhasObras() {
                 minLength={2}
               />
 
+              <label htmlFor="obra-cidade">Cidade da obra (para previsão do tempo)</label>
+              <input
+                id="obra-cidade"
+                name="cidade"
+                value={novaObra.cidade}
+                onChange={alterarCampo}
+                placeholder="Ex.: São Paulo"
+                maxLength={100}
+              />
+
               <label htmlFor="obra-status">Status inicial</label>
               <select id="obra-status" name="status" value={novaObra.status} onChange={alterarCampo}>
                 <option>Iniciando</option>
                 <option>Em andamento</option>
                 <option>Atrasada</option>
+                <option>Concluída</option>
               </select>
+
+              <label htmlFor="obra-orcamento">Orçamento (R$)</label>
+              <input
+                id="obra-orcamento"
+                name="orcamento"
+                type="number"
+                min="0"
+                step="0.01"
+                value={novaObra.orcamento}
+                onChange={alterarCampo}
+                placeholder="Ex.: 150000"
+                required
+              />
+
+              <label htmlFor="obra-data-inicio">Data de início</label>
+              <input
+                id="obra-data-inicio"
+                name="dataInicio"
+                type="date"
+                value={novaObra.dataInicio}
+                onChange={alterarCampo}
+                required={obraEmEdicao === null}
+              />
+
+              <label htmlFor="obra-data-prevista">Previsão de conclusão</label>
+              <input
+                id="obra-data-prevista"
+                name="dataPrevista"
+                type="date"
+                min={novaObra.dataInicio || undefined}
+                value={novaObra.dataPrevista}
+                onChange={alterarCampo}
+                required
+              />
 
               <label htmlFor="obra-progresso">Progresso (%)</label>
               <input
@@ -257,6 +342,7 @@ export default function MinhasObras() {
                 value={novaObra.progresso}
                 onChange={alterarCampo}
                 required
+                disabled={novaObra.status === 'Concluída'}
               />
 
               <div className="nova-obra-acoes">

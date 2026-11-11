@@ -23,7 +23,7 @@ API: http://localhost:3000  |  SQLite: `prisma/dev.db` (criado ao executar `db:p
 3. Nas demais requisições, envie `Authorization: Bearer SEU_TOKEN`.
 4. Dashboard: `GET /api/dashboard`, que fornece `obrasAtivas`, `obrasTrend`, `orcamentoConsumido`, `orcamentoStatus`, `alertasCount`, `ultimoAlertaMsg`, `equipePresente`, `presencaStatus`.
 5. Minhas Obras: `GET /api/obras`, que fornece array com `id`, `nome`, `responsavel`, `status` em português, `progresso`, `alerta` e também detalhes relacionais originais.
-6. Agente: `POST /api/agente/perguntar` (ou `/api/agente/chat`) com `{ "pergunta": "..." }` ou `{ "prompt": "..." }`. Resposta `{ "resposta": "..." }`. **Não há IA generativa nesta versão**.
+6. Agente Pri: `POST /api/agente/chat` com `{ "pergunta", "mensagens", "obras" }`; a resposta vem em `{ "resposta" }`. A chave Gemini fica somente no backend. O endpoint legado `POST /api/agente/perguntar` continua respondendo com dados do banco.
 7. Clientes podem enviar solicitações em `POST /api/solicitacoes`; profissionais/empresas enviam propostas em `POST /api/propostas`; clientes aceitam em `POST /api/propostas/:id/aceitar`.
 8. Ao aceitar uma proposta, o cliente cria a obra automaticamente. O prestador responsável pode alterar o orçamento com `PATCH /api/obras/:id/orcamento` (`{ "orcamento": 1200 }`), adicionar produtos em `POST /api/obras/:id/produtos` (`{ "nome": "Cimento", "quantidade": 10, "valorUnitario": 35.5 }`), registrar o progresso realizado em `POST /api/obras/:id/atualizacoes` (`{ "progresso": 40, "descricao": "Etapa concluída" }`) e planejar etapas do cronograma em `POST /api/obras/:id/etapas` (`{ "titulo": "Fundação", "descricao": "Preparar e concretar a fundação", "dataInicio": "2026-12-01", "dataFim": "2026-12-10" }`). Consulte o calendário em `GET /api/obras/:id/etapas` ou os detalhes da obra em `GET /api/obras/:id`; as etapas são retornadas em ordem de início. Edite datas, título, descrição ou status (`PLANEJADA`, `EM_ANDAMENTO`, `CONCLUIDA`, `CANCELADA`) com `PATCH /api/obras/:id/etapas/:etapaId` e remova uma etapa com `DELETE` na mesma rota. As datas devem ser válidas e a data final igual ou posterior à inicial. A empresa também pode administrar o progresso e é a única que pode cancelar a obra em `POST /api/obras/:id/cancelar`. As ações do prestador só se aplicam às obras vinculadas ao seu perfil. O cancelamento preserva o registro e altera o status para `CANCELADA`.
 
@@ -31,7 +31,6 @@ API: http://localhost:3000  |  SQLite: `prisma/dev.db` (criado ao executar `db:p
 
 - `Dashboard.jsx`: atualmente exibe números literais (12, 45%, 3 e 148).
 - `MinhasObras.jsx`: ainda tem array estático, botões de visualizar/editar sem ação e Nova Obra sem ação.
-- `AgenteIA.jsx`: ainda usa `setTimeout` para simular o agente.
 - `App.jsx`: não possui `/login` ou `/cadastro`, nem proteção de rotas.
 - Links de Orçamentos e Cronogramas são apenas placeholders.
 
@@ -46,3 +45,9 @@ Após atualizar o backend, execute `npm run db:push` para criar as tabelas de pr
 - Contagem de alertas usa apenas obras explicitamente marcadas como `ATRASADA`.
 - Use este projeto para estudo/desenvolvimento local; para produção, fortalecer sessões, validações, concorrência e controle de permissões.
 - Não comite `.env` ou arquivos `.db` no Git.
+
+## Pri e Gemini
+
+Configure `GEMINI_API_KEY` no ambiente do backend antes de iniciar o servidor. Opcionalmente, defina `GEMINI_MODEL` (o padrão é `gemini-2.5-flash`). Nunca coloque a chave no frontend ou em variáveis `VITE_*`.
+
+O chat autenticado envia somente nome, status, progresso e alerta das obras salvas no navegador, junto com a pergunta e o histórico recente. Esses dados são enviados à API Gemini para gerar a resposta. A tela oferece perguntas sugeridas e também aceita perguntas digitadas; a Pri não altera os registros.

@@ -6,9 +6,9 @@ import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
 import Dashboard from './pages/Dashboard';
 import MinhasObras from './pages/MinhasObras';
+import ObraDetalhes from './pages/ObraDetalhes';
 import Orcamentos from './pages/Orcamentos';
 import Cronogramas from './pages/Cronogramas';
-import AgenteIA from './pages/AgenteIA';
 
 import './App.css';
 
@@ -33,6 +33,10 @@ export default function App() {
           <RotaProtegida><MinhasObras /></RotaProtegida>
         } />
 
+        <Route path="/obras/:id" element={
+          <RotaProtegida><ObraDetalhes /></RotaProtegida>
+        } />
+
         <Route path="/orcamentos" element={
           <RotaProtegida><Orcamentos /></RotaProtegida>
         } />
@@ -42,7 +46,7 @@ export default function App() {
         } />
 
         <Route path="/agente" element={
-          <RotaProtegida><AgenteIA /></RotaProtegida>
+          <RotaProtegida><Navigate to="/dashboard" replace /></RotaProtegida>
         } />
       </Routes>
     </BrowserRouter>

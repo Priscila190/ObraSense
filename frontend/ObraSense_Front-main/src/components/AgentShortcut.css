@@ -1,0 +1,414 @@
+.agent-shortcut {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 20;
+  display: flex;
+  width: 62px;
+  height: 62px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  background: linear-gradient(145deg, #10b981, #059669);
+  box-shadow: 0 8px 24px rgba(2, 8, 23, 0.28), 0 0 0 5px rgba(16, 185, 129, 0.15);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.agent-shortcut:hover {
+  transform: translateY(-3px) scale(1.04);
+  background: linear-gradient(145deg, #059669, #047857);
+  box-shadow: 0 12px 28px rgba(2, 8, 23, 0.32), 0 0 0 6px rgba(16, 185, 129, 0.2);
+}
+
+.agent-shortcut:focus-visible,
+.pri-icon-button:focus-visible,
+.pri-chat-form button:focus-visible,
+.pri-suggestions button:focus-visible {
+  outline: 3px solid #10b981;
+  outline-offset: 3px;
+}
+
+.agent-shortcut .material-symbols-outlined {
+  font-size: 30px;
+}
+
+.pri-chat-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 104px 28px 28px;
+  background: rgba(15, 23, 42, 0.22);
+  backdrop-filter: blur(2px);
+}
+
+.pri-chat-modal {
+  display: flex;
+  width: min(420px, 100%);
+  height: min(660px, 100%);
+  min-height: 420px;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #dbe3eb;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgba(2, 8, 23, 0.28);
+  animation: pri-chat-in 180ms ease-out;
+}
+
+.pri-chat-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  background: #0f172a;
+  color: #fff;
+}
+
+.pri-avatar {
+  position: relative;
+  display: flex;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.14);
+  color: #6ee7b7;
+}
+
+.pri-avatar .material-symbols-outlined {
+  font-size: 23px;
+}
+
+.pri-status-dot {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 11px;
+  height: 11px;
+  border: 2px solid #0f172a;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.pri-chat-heading {
+  min-width: 0;
+}
+
+.pri-chat-heading h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.pri-chat-heading p {
+  margin-top: 3px;
+  color: #cbd5e1;
+  font-size: 12px;
+}
+
+.pri-chat-actions {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.pri-icon-button {
+  display: flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #cbd5e1;
+  cursor: pointer;
+}
+
+.pri-icon-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.pri-icon-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.pri-chat-messages {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  padding: 20px;
+  background: #f8fafc;
+}
+
+.pri-welcome {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.pri-welcome > .material-symbols-outlined {
+  display: flex;
+  width: 46px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  border-radius: 14px;
+  background: #dcfce7;
+  color: #059669;
+  font-size: 24px;
+}
+
+.pri-welcome h3 {
+  margin: 0 0 6px;
+  color: #0f172a;
+  font-size: 20px;
+}
+
+.pri-welcome > p {
+  max-width: 290px;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.pri-suggestions {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.pri-suggestions button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+  color: #334155;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: left;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+
+.pri-suggestions button:hover:not(:disabled) {
+  border-color: #6ee7b7;
+  background: #f0fdf4;
+}
+
+.pri-suggestions button .material-symbols-outlined {
+  flex-shrink: 0;
+  color: #059669;
+  font-size: 18px;
+}
+
+.pri-message {
+  display: flex;
+  max-width: 88%;
+  flex-direction: column;
+  align-self: flex-start;
+  gap: 5px;
+}
+
+.pri-message.user {
+  align-self: flex-end;
+}
+
+.pri-message-name {
+  padding-left: 4px;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.pri-message p {
+  padding: 11px 13px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px 14px 14px 4px;
+  background: #fff;
+  color: #334155;
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.pri-message.user p {
+  border-color: #059669;
+  border-radius: 14px 14px 4px 14px;
+  background: #059669;
+  color: #fff;
+}
+
+.pri-typing {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 4px;
+  padding: 13px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px 14px 14px 4px;
+  background: #fff;
+}
+
+.pri-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: pri-typing-pulse 900ms ease-in-out infinite alternate;
+}
+
+.pri-typing span:nth-child(2) { animation-delay: 150ms; }
+.pri-typing span:nth-child(3) { animation-delay: 300ms; }
+
+.pri-chat-error {
+  padding: 10px 12px;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.pri-chat-form {
+  display: flex;
+  flex-shrink: 0;
+  align-items: flex-end;
+  gap: 8px;
+  margin: 14px 16px 8px;
+  padding: 8px;
+  border: 1px solid #dbe3eb;
+  border-radius: 14px;
+  background: #fff;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.pri-chat-form:focus-within {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+.pri-chat-form textarea {
+  width: 100%;
+  max-height: 100px;
+  resize: vertical;
+  padding: 8px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #0f172a;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.pri-chat-form textarea::placeholder {
+  color: #94a3b8;
+}
+
+.pri-chat-form button {
+  display: flex;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 10px;
+  background: #10b981;
+  color: #fff;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.pri-chat-form button:hover:not(:disabled) {
+  background: #059669;
+}
+
+.pri-chat-form button:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.pri-chat-disclaimer {
+  flex-shrink: 0;
+  padding: 0 18px 12px;
+  color: #94a3b8;
+  font-size: 10px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+@keyframes pri-chat-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes pri-typing-pulse {
+  from { opacity: 0.4; transform: translateY(1px); }
+  to { opacity: 1; transform: translateY(-2px); }
+}
+
+@media (max-width: 600px) {
+  .agent-shortcut {
+    right: 18px;
+    bottom: 18px;
+    width: 56px;
+    height: 56px;
+  }
+
+  .pri-chat-overlay {
+    align-items: stretch;
+    justify-content: center;
+    padding: 12px;
+    background: rgba(15, 23, 42, 0.5);
+  }
+
+  .pri-chat-modal {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    border-radius: 16px;
+  }
+
+  .pri-chat-messages {
+    padding: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agent-shortcut,
+  .pri-chat-modal,
+  .pri-typing span {
+    animation: none;
+    transition: none;
+  }
+}

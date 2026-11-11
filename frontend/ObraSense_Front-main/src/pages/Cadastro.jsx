@@ -66,6 +66,7 @@ export default function Cadastro() {
   return (
     <main className="cadastro-page">
       <div className="cadastro-container">
+        <img className="cadastro-logo" src="/logo.png" alt="Logo do ObraSense" />
         <h1>Crie sua conta</h1>
         <p>Faça parte do ObraSense</p>
 
