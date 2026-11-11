@@ -1,0 +1,255 @@
+/* WRAPPER PRINCIPAL DO CHAT */
+.gemini-chat-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 72px);
+  background-color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ÁREA CENTRALIZADA DO CONTEÚDO */
+.gemini-chat-content {
+  flex: 1;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 24px 140px 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* MODEL SELECTOR NA TOPBAR */
+.model-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #F1F5F9;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #E2E8F0;
+}
+
+.icon-sparkle {
+  color: var(--verde-claro);
+  font-size: 18px !important;
+}
+
+.model-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--azul-super-escuro);
+}
+
+.model-tag {
+  font-size: 10px;
+  font-weight: 800;
+  background-color: var(--verde-claro);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+/* LISTA DE MENSAGENS */
+.gemini-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.gemini-msg-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.gemini-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.gemini-msg-row.ia .gemini-avatar {
+  background: linear-gradient(135deg, var(--azul-super-escuro), #1E293B);
+  color: var(--verde-claro);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.gemini-msg-row.usuario .gemini-avatar {
+  background-color: #E2E8F0;
+  color: #475569;
+}
+
+.gemini-msg-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.gemini-msg-author {
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748B;
+}
+
+.gemini-msg-text p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #1E293B;
+  white-space: pre-wrap;
+}
+
+.gemini-msg-row.usuario .gemini-msg-text p {
+  background-color: #F8FAFC;
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+/* CHIPS DE SUGESTÕES RÁPIDAS */
+.gemini-suggestions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.suggestion-card {
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.suggestion-card:hover {
+  background-color: #F1F5F9;
+  border-color: var(--verde-claro);
+  transform: translateY(-2px);
+}
+
+.suggestion-card .icon-arrow {
+  color: #94A3B8;
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+
+.suggestion-card:hover .icon-arrow {
+  color: var(--verde-claro);
+  transform: translateX(4px);
+}
+
+/* CAIXA DE ENTRADA FLUTUANTE (FIXA EM BAIXO) */
+.gemini-input-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, #FFFFFF 70%, rgba(255, 255, 255, 0));
+  padding: 16px 24px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gemini-input-box {
+  width: 100%;
+  max-width: 800px;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.gemini-input-box:focus-within {
+  border-color: var(--verde-claro);
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
+  background-color: #FFFFFF;
+}
+
+.input-action-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.input-action-btn:hover {
+  color: var(--azul-super-escuro);
+}
+
+.gemini-input-box textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--azul-super-escuro);
+  resize: none;
+  max-height: 120px;
+  padding: 8px 0;
+}
+
+.btn-send-gemini {
+  background-color: #E2E8F0;
+  color: #94A3B8;
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: not-allowed;
+  transition: all 0.2s;
+}
+
+.btn-send-gemini.active {
+  background-color: var(--verde-claro);
+  color: white;
+  cursor: pointer;
+}
+
+.btn-send-gemini.active:hover {
+  background-color: #059669;
+  transform: scale(1.05);
+}
+
+.gemini-disclaimer {
+  font-size: 11px;
+  color: #94A3B8;
+  margin-top: 10px;
+  text-align: center;
+}

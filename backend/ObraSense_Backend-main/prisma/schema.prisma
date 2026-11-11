@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id          Int          @id @default(autoincrement())
+  nome        String
+  email       String       @unique
+  senhaHash   String
+  senhaSalt   String
+  tipo        String       @default("CLIENTE")
+  criadoEm    DateTime     @default(now())
+  prestador   Prestador?
+  solicitacoes Solicitacao[]
+  obrasCliente Obra[]      @relation("ClienteObras")
+}
+
+model Prestador {
+  id           Int       @id @default(autoincrement())
+  usuarioId    Int       @unique
+  usuario      Usuario   @relation(fields: [usuarioId], references: [id])
+  tipo         String
+  nomeExibicao String
+  descricao    String    @default("")
+  cidade       String    @default("")
+  telefone     String    @default("")
+  servicos     Servico[]
+  propostas    Proposta[]
+  obras        Obra[]    @relation("PrestadorObras")
+}
+
+model Servico {
+  id          Int       @id @default(autoincrement())
+  nome        String
+  categoria   String
+  descricao   String    @default("")
+  prestadorId Int
+  prestador   Prestador @relation(fields: [prestadorId], references: [id])
+}
+
+model Solicitacao {
+  id        Int       @id @default(autoincrement())
+  titulo    String
+  descricao String
+  categoria String
+  cidade    String
+  status    String    @default("ABERTA")
+  clienteId Int
+  cliente   Usuario   @relation(fields: [clienteId], references: [id])
+  propostas Proposta[]
+  obra      Obra?
+  criadoEm  DateTime  @default(now())
+}
+
+model Proposta {
+  id            Int         @id @default(autoincrement())
+  valor         Float
+  descricao     String
+  status        String      @default("PENDENTE")
+  solicitacaoId Int
+  prestadorId   Int
+  solicitacao   Solicitacao  @relation(fields: [solicitacaoId], references: [id])
+  prestador     Prestador    @relation(fields: [prestadorId], references: [id])
+  criadoEm      DateTime    @default(now())
+  @@unique([solicitacaoId, prestadorId])
+}
+
+model Obra {
+  id            Int          @id @default(autoincrement())
+  nome          String
+  status        String       @default("EM_ANDAMENTO")
+  orcamento     Float
+  valorGasto    Float        @default(0)
+  progresso     Int          @default(0)
+  clienteId     Int
+  prestadorId   Int
+  solicitacaoId Int          @unique
+  cliente       Usuario      @relation("ClienteObras", fields: [clienteId], references: [id])
+  prestador     Prestador    @relation("PrestadorObras", fields: [prestadorId], references: [id])
+  solicitacao   Solicitacao  @relation(fields: [solicitacaoId], references: [id])
+  atualizacoes  Atualizacao[]
+  produtos      Produto[]
+  etapas        EtapaCronograma[]
+}
+
+model Atualizacao {
+  id        Int      @id @default(autoincrement())
+  descricao String
+  progresso Int
+  criadoEm  DateTime @default(now())
+  obraId    Int
+  obra      Obra     @relation(fields: [obraId], references: [id])
+}
+
+model Produto {
+  id            Int      @id @default(autoincrement())
+  nome          String
+  quantidade    Int
+  valorUnitario Float
+  criadoEm      DateTime @default(now())
+  obraId        Int
+  obra          Obra     @relation(fields: [obraId], references: [id])
+}
+
+model EtapaCronograma {
+  id         Int      @id @default(autoincrement())
+  titulo     String
+  descricao  String   @default("")
+  dataInicio DateTime
+  dataFim    DateTime
+  status     String   @default("PLANEJADA")
+  criadoEm   DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+  obraId     Int
+  obra       Obra     @relation(fields: [obraId], references: [id])
+}

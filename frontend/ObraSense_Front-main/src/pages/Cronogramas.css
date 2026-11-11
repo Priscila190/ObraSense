@@ -1,0 +1,277 @@
+.cronogramas-vazio {
+  display: flex;
+  min-height: 260px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  background: var(--branco);
+  text-align: center;
+}
+
+.cronogramas-vazio > .material-symbols-outlined {
+  margin-bottom: 12px;
+  color: var(--verde-claro);
+  font-size: 44px;
+}
+
+.cronogramas-vazio h2 {
+  margin: 0 0 8px;
+  color: var(--azul-super-escuro);
+  font-size: 20px;
+}
+
+.cronogramas-vazio p {
+  color: #64748B;
+  font-size: 14px;
+}
+
+.cronogramas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.cronograma-adicionar,
+.cronograma-acoes button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--verde-claro);
+  color: #FFFFFF;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cronograma-adicionar:hover,
+.cronograma-acoes button[type="submit"]:hover {
+  background: #059669;
+}
+
+.cronograma-adicionar:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.cronograma-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding: 24px;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  background: var(--branco);
+}
+
+.cronograma-form h2 {
+  margin: 0 0 4px;
+  color: var(--azul-super-escuro);
+  font-size: 20px;
+}
+
+.cronograma-form label {
+  margin-top: 4px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cronograma-form input,
+.cronograma-form select {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  background: #FFFFFF;
+  color: #0F172A;
+  font: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.cronograma-aviso {
+  margin: 0;
+  color: #B45309;
+  font-size: 14px;
+}
+
+.cronograma-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.cronograma-acoes .cronograma-cancelar {
+  border: 1px solid #CBD5E1;
+  background: #FFFFFF;
+  color: #475569;
+}
+
+.calendario-progresso {
+  padding: 24px;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  background: var(--branco);
+}
+
+.calendario-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.calendario-header h2 {
+  margin: 0;
+  color: var(--azul-super-escuro);
+  font-size: 21px;
+  text-transform: capitalize;
+}
+
+.calendario-navegacao {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.calendario-navegacao button {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  background: #FFFFFF;
+  color: #334155;
+  cursor: pointer;
+}
+
+.calendario-navegacao button:hover {
+  border-color: var(--verde-claro);
+  color: #059669;
+}
+
+.calendario-grade {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  overflow: hidden;
+  border-top: 1px solid #E2E8F0;
+  border-left: 1px solid #E2E8F0;
+}
+
+.calendario-dia-semana {
+  padding: 10px 6px;
+  background: #F8FAFC;
+  color: #64748B;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.calendario-dia-semana,
+.calendario-celula {
+  border-right: 1px solid #E2E8F0;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.calendario-celula {
+  min-width: 0;
+  min-height: 110px;
+  padding: 8px;
+  background: #FFFFFF;
+}
+
+.calendario-vazia {
+  background: #F8FAFC;
+}
+
+.calendario-hoje {
+  background: #F0FDF4;
+}
+
+.calendario-numero {
+  display: inline-flex;
+  width: 26px;
+  height: 26px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+  border-radius: 50%;
+  color: #334155;
+  font-size: 13px;
+}
+
+.calendario-hoje .calendario-numero {
+  background: var(--verde-claro);
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.calendario-marcos {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.calendario-marco {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+  padding: 5px 6px;
+  border-left: 3px solid var(--verde-claro);
+  border-radius: 3px;
+  background: #ECFDF5;
+  color: #065F46;
+  font-size: 11px;
+}
+
+.calendario-marco strong,
+.calendario-marco span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.marco-progresso {
+  font-weight: 700;
+}
+
+.calendario-ajuda {
+  margin: 16px 0 0;
+  color: #64748B;
+  font-size: 14px;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .cronogramas-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .calendario-progresso {
+    overflow-x: auto;
+    padding: 16px;
+  }
+
+  .calendario-grade {
+    min-width: 650px;
+  }
+
+  .calendario-celula {
+    min-height: 90px;
+    padding: 5px;
+  }
+}

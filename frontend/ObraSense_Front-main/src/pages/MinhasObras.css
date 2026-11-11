@@ -1,0 +1,226 @@
+.btn-nova-obra {
+  background-color: var(--verde-claro);
+  color: var(--branco);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.2s;
+}
+
+.btn-nova-obra:hover {
+  background-color: #059669;
+}
+
+.nova-obra-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.nova-obra-modal {
+  width: 100%;
+  max-width: 480px;
+  padding: 28px;
+  border-radius: 12px;
+  background: var(--branco);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+  box-sizing: border-box;
+}
+
+.nova-obra-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.nova-obra-modal-header h2 {
+  margin: 0;
+  color: var(--azul-super-escuro);
+  font-size: 22px;
+}
+
+.nova-obra-fechar {
+  display: flex;
+  padding: 6px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #64748B;
+  cursor: pointer;
+}
+
+.nova-obra-fechar:hover {
+  background: #F1F5F9;
+}
+
+.nova-obra-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.nova-obra-form label {
+  margin-top: 6px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.nova-obra-form input,
+.nova-obra-form select {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  background: #FFFFFF;
+  color: #0F172A;
+  font: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.nova-obra-form input:focus,
+.nova-obra-form select:focus {
+  outline: 2px solid var(--verde-claro);
+  outline-offset: 1px;
+}
+
+.nova-obra-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.nova-obra-acoes button {
+  padding: 10px 16px;
+  border-radius: 7px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.nova-obra-cancelar {
+  border: 1px solid #CBD5E1;
+  background: #FFFFFF;
+  color: #475569;
+}
+
+.nova-obra-salvar {
+  border: 0;
+  background: var(--verde-claro);
+  color: #FFFFFF;
+}
+
+.nova-obra-salvar:hover {
+  background: #059669;
+}
+
+.table-container {
+  background-color: var(--branco);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+  border: 1px solid #E2E8F0;
+  overflow: hidden;
+}
+
+.obras-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.obras-table th {
+  background-color: #F8FAFC;
+  padding: 16px 24px;
+  font-size: 13px;
+  color: #64748B;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.obras-table td {
+  padding: 20px 24px;
+  border-bottom: 1px solid #F1F5F9;
+  color: #334155;
+  font-size: 15px;
+}
+
+.obras-table tbody tr:hover {
+  background-color: #F8FAFC;
+}
+
+.obra-nome {
+  font-weight: 600;
+  color: var(--azul-super-escuro);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icone-alerta {
+  color: #EF4444;
+  font-size: 20px;
+}
+
+.linha-alerta {
+  background-color: #FEF2F2 !important;
+}
+
+/* Badges de Status */
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-badge.em-andamento { background-color: #DBEAFE; color: #1D4ED8; }
+.status-badge.atrasada { background-color: #FEE2E2; color: #B91C1C; }
+.status-badge.iniciando { background-color: #FEF3C7; color: #B45309; }
+
+/* Barra de Progresso */
+.progresso-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.progresso-barra {
+  height: 8px;
+  background-color: var(--verde-claro);
+  border-radius: 4px;
+  min-width: 50px;
+  max-width: 120px;
+}
+
+.progresso-texto {
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.btn-acao {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  margin-right: 12px;
+  transition: 0.2s;
+}
+
+.btn-acao:hover {
+  color: var(--azul-super-escuro);
+}

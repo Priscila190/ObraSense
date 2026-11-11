@@ -1,0 +1,97 @@
+
+.cadastro-page {
+  min-height: 100vh;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 15px;
+  font-family: Arial, sans-serif;
+}
+
+.cadastro-container {
+  background: #ffffff;
+  width: 100%;
+  max-width: 450px;
+  padding: 35px;
+  border-radius: 12px;
+}
+
+.cadastro-container h1 {
+  color: #0f172a;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.cadastro-container > p {
+  text-align: center;
+  color: #64748b;
+}
+
+.cadastro-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.cadastro-container label {
+  font-weight: bold;
+  color: #334155;
+  font-size: 14px;
+}
+
+.cadastro-container input,
+.cadastro-container select {
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  color: #0f172a;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cadastro-container input:focus,
+.cadastro-container select:focus {
+  outline: 2px solid #2563eb;
+}
+
+.cadastro-container button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.cadastro-container button:hover {
+  background: #1d4ed8;
+}
+
+.cadastro-container button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cadastro-container .cadastro-erro {
+  color: #dc2626;
+  font-size: 13px;
+}
+
+.cadastro-login,
+.cadastro-voltar {
+  display: block;
+  text-align: center;
+  margin-top: 18px;
+}
+
+.cadastro-login a,
+.cadastro-voltar {
+  color: #2563eb;
+  text-decoration: none;
+}

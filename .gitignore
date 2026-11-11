@@ -1,0 +1,15 @@
+# Dependências
+node_modules/
+
+# Credenciais
+.env
+.env.*
+!.env.example
+
+# Arquivos gerados
+dist/
+*.log
+
+# Banco local
+*.db
+*.db-journal
